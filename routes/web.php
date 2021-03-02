@@ -12,7 +12,11 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [PostController::class, 'index']);
-//Route::get('/', 'PostController@index');
+//Route::get('/posts/{id}', 'PostController@show');
+//Route::get('/posts/{id}', [PostController::class, 'show2']);
+//Route::get('/posts/{slug}', [PostController::class, 'show3']);
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.single'); // Route Model Binding //
+
 
 Route::get('/about-me', function () {
     return view('pages.about');

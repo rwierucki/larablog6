@@ -7,31 +7,42 @@ use App\Post;
 
 class PostController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 //        $posts = Post::all();
 //        return $posts = Post::latest('date')->toSql(); // zwraca zapytanie SQL
-        $posts = Post::latest('date')->get();
-        $posts_old = [
-            (object)[
-                'id' => 1,
-                'title' => 'Test 1 - first text',
-                'content' => '<b>Test bold</b> cos innego Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto culpa dolor eos error esse exercitationem expedita id in nesciunt nihil numquam optio, perferendis qui ut vero! Asperiores incidunt quod tempore?',
-                'date' => '2021-02-02',
-                'type' => 'text',
-                'image' => null
-            ],
-            (object)[
-                'id' => 2,
-                'title' => 'Test photo ',
-                'content' => '<b>Test bold</b> cos innego Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto culpa dolor eos error esse exercitationem expedita id in nesciunt nihil numquam optio, perferendis qui ut vero! Asperiores incidunt quod tempore?',
-                'date' => '2021-02-02',
-                'type' => 'photo',
-                'image' => '/images/image-01.jpg'
-            ],
+//        $posts = Post::latest('date')->get();
+//        $posts = Post::latest('date')->skip(3)->limit(3)->get();
+        $posts = Post::latest('date')->paginate(3);
 
-        ];
 //    return view('pages.posts');
 //    return view('pages.posts', ['posts' => $posts]);
         return view('pages.posts', compact('posts'));
     }
+
+    public function show2($id)
+    {
+//        $post = Post::where('id', $id)->first(); // pierwszy sposób pobrania jednego elementu // first() - zwraca model
+//        $post = Post::find($id);
+//      // jesli nie ma posta to zwaraca null
+//        if (is_null($post)) return abort(404); // zwraca 404
+        // dobre rozwiazanie
+        $post = Post::findOrFail($id);
+        return view('pages.post', compact('post'));
+    }
+
+    public function show3($slug)
+    {
+//        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::whereSlug($slug)->firstOrFail();
+        return view('pages.post', compact('post'));
+    }
+
+    // Route Model Binding // slug -> dodać do modelu getRouteKeyName
+    public function show(Post $post)
+    {
+        return view('pages.post', compact('post'));
+    }
+
+
 }
