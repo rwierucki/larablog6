@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +22,6 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.single
 Route::get('/about-me', function () {
     return view('pages.about');
 })->name('about');
+
+
+Auth::routes(); //  sprawdzenie URI dla auth ->  php artisan route:list

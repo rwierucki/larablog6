@@ -11,14 +11,20 @@
     <title>@yield('title', 'Home') - larablog6</title>
 </head>
 <body class="page-index">
+@include('partials.message')
 <div class="container">
     <header class="mainHeader">
         <div class="wrapper flex">
             <a href="{{ url('/') }}" class="logo">larablog6</a>
             <nav>
                 <ul>
-                    <li><a href="{{ route('about') }}" {!! request()->routeIs('about') ? 'class="is-active"' : '' !!}>About me</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="{{ route('about') }}" {!! request()->routeIs('about') ? 'class="is-active"' : '' !!}>About
+                            me</a></li>
+                    @auth
+                        <li><a href="#logout">Logout</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                    @endauth
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">RSS <i class="fa fa-rss-square"></i></a></li>
                 </ul>
@@ -39,7 +45,9 @@
             <nav>
                 <ul>
                     <li><a href="{{ route('about') }}">About me</a></li>
-                    <li><a href="#">Login</a></li>
+                    @guest
+                        <li><a href="{{ route('logout') }}">Login</a></li>
+                    @endguest
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">RSS</a></li>
                 </ul>
@@ -49,5 +57,16 @@
     </footer>
 </div>
 </body>
+@auth
+    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+        @csrf
+    </form>
+    <script>
+        document.querySelector("a[href='#logout']").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector("#logout-form").submit();
+        }, false)
+    </script>
+@endauth
 </html>
 
