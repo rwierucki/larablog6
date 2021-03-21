@@ -29,7 +29,7 @@
                 <div class="flex flex-sb">
                     <p class="date"><i class="fa fa-clock-o"></i> {{ $post->date->diffForHumans() }}</p>
                     <p>
-                        <a href="#" class="link"><i class="fa fa-edit"></i> Edytuj</a>
+                        <a href="{{ route('admin.post.edit', $post->id) }}" class="link"><i class="fa fa-edit"></i> Edytuj</a>
                     </p>
                 </div>
             </div>
@@ -39,10 +39,10 @@
             <figure class="postImage">
                 <i class="postPremium fa fa-star"></i>
                 <a href="#">
-                    <img src="{{ $post->image }}" alt="" class="mainPhoto">
+                    <img src="{{ $post->photo }}" alt="" class="mainPhoto">
                 </a>
                 <div class="cover"
-                     style="background: url({{ $post->image }}) no-repeat;">
+                     style="background: url({{ $post->photo }}) no-repeat;">
                 </div>
             </figure>
             <div class="meta">
@@ -58,7 +58,7 @@
                 <div class="flex flex-sb">
                     <p class="date"><i class="fa fa-clock-o"></i> {{ $post->date->diffForHumans() }}</p>
                     <p>
-                        <a href="#" class="link"><i class="fa fa-edit"></i> Edytuj</a>
+                        <a href="{{ route('admin.post.edit', $post->id) }}" class="link"><i class="fa fa-edit"></i> Edytuj</a>
                     </p>
                 </div>
             </div>

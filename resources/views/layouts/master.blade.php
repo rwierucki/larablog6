@@ -20,13 +20,15 @@
                 <ul>
                     <li><a href="{{ route('about') }}" {!! request()->routeIs('about') ? 'class="is-active"' : '' !!}>About
                             me</a></li>
-                    @auth
-                        <li><a href="#logout">Logout</a></li>
-                    @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                    @endauth
+
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">RSS <i class="fa fa-rss-square"></i></a></li>
+                    @auth
+                        <li><a href="{{ route('admin.post.create') }}">Create post</a></li>
+                        <li><a href="#logout" class="last">Logout</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}" class="last">Login</a></li>
+                    @endauth
                 </ul>
             </nav>
             <form action="#" class="search">

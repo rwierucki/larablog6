@@ -1,6 +1,9 @@
 <?php
+
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,4 +27,11 @@ Route::get('/about-me', function () {
 })->name('about');
 
 
-Auth::routes(); //  sprawdzenie URI dla auth ->  php artisan route:list
+//Auth::routes(); //  sprawdzenie URI dla auth ->  php artisan route:list
+Auth::routes(['verify' => "true"]); //  dodanie weryfikacji użytkownika
+
+Route::get('/admin/post/create', [Admin\PostController::class, 'create'])->name('admin.post.create');
+Route::post('/admin/post/create', [Admin\PostController::class, 'store']);
+Route::get('/admin/post/{id}', [Admin\PostController::class, 'edit'])->name('admin.post.edit');
+Route::put('/admin/post/{id}', [Admin\PostController::class, 'update']);
+Route::delete('/admin/post/{id}', [Admin\PostController::class, 'destroy'])->name('admin.post.delete');

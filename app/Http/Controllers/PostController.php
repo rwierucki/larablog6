@@ -7,6 +7,11 @@ use App\Post;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        // dla użytkowników zweryfikowanych dostępna jest tylko metoda "show"
+        $this->middleware('verified')->only('show');
+    }
     public function index()
     {
 //        $posts = Post::all();
