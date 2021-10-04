@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        // uzytkownik musi byc zalogowany aby miec dostep do tego kotrolera 
+        $this->middleware('auth');
+        // sprawdzenie jakie ma uprawnienia dany uzytkownik - AuthServiceProvider.php
+        $this->middleware('can:manage-post');
+    }
     protected function validator($data)
     {
         return Validator::make($data, [

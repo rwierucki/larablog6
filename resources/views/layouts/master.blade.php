@@ -23,8 +23,12 @@
 
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">RSS <i class="fa fa-rss-square"></i></a></li>
-                    @auth
+                    {{-- // sprawdzanie uprawnien //  --}}
+                    @can('manage-posts')
                         <li><a href="{{ route('admin.post.create') }}">Create post</a></li>
+                    @endcan
+
+                    @auth
                         <li><a href="#logout" class="last">Logout</a></li>
                     @else
                         <li><a href="{{ route('login') }}" class="last">Login</a></li>

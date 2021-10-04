@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // okreslanie uprawnien 
+        Gate::define('manage-post', function($user){
+            return $user->isAdmin();
+        });
     }
 }

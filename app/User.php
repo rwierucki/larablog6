@@ -36,4 +36,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        $admin_user_id = [1,2,3,4,5];
+        return  in_array($this->id, $admin_user_id);
+    }
 }
